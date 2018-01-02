@@ -8,20 +8,18 @@
     <script type="text/paperscript" canvas="myCanvas">
       var text = new PointText({
       	point: view.center,
-      	content: 'Click here to focus and then press some keys.',
-      	justification: 'center',
-      	fontSize: 15
+      	// content: 'Click here to focus and then press some keys.',
+      	// justification: 'center',
+      	fontSize: 40
       });
 
       function onKeyDown(event) {
       	// When a key is pressed, set the content of the text item:
-      	text.content = 'The ' + event.key + ' key was pressed!';
+      	// text.content = 'The ' + event.key + ' key was pressed!';
+        text.fillColor = 'white';
+      	text.content = event.key;
       }
 
-      function onKeyUp(event) {
-      	// When a key is released, set the content of the text item:
-      	text.content = 'The ' + event.key + ' key was released!';
-      }
     </script>
   </head>
   <body>
