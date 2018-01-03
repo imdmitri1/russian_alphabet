@@ -4,8 +4,193 @@
     <meta charset="utf-8">
     <title>Learn russian alphabet!</title>
     <script type="text/javascript" src="paper-full.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.7/howler.js"></script>
     <link rel="stylesheet" href="style.css">
     <script type="text/paperscript" canvas="myCanvas">
+    var keyData = {
+	q: {
+   letter: "Й",
+		sound: new Howl({
+  		src: ['sounds/ikr.mp3']
+		}),
+		color: '#1abc9c'
+	},
+	w: {
+   letter: "Ш",
+		sound: new Howl({
+  		src: ['sounds/sh.mp3']
+		}),
+		color: '#2ecc71'
+	},
+	e: {
+   letter: "E",
+		sound: new Howl({
+  		src: ['sounds/e.mp3']
+		}),
+		color: '#3498db'
+	},
+	r: {
+    letter: "Р",
+		sound: new Howl({
+  		src: ['sounds/r.mp3']
+		}),
+		color: '#9b59b6'
+	},
+		t: {
+    letter: "Т",
+		sound: new Howl({
+  		src: ['sounds/t.mp3']
+		}),
+		color: '#34495e'
+	},
+	y: {
+    letter: "У",
+		sound: new Howl({
+  		src: ['sounds/y.mp3']
+		}),
+		color: '#16a085'
+	},
+	u: {
+    letter: "Ю",
+		sound: new Howl({
+  		src: ['sounds/u.mp3']
+		}),
+		color: '#27ae60'
+	},
+	i: {
+    letter: "И",
+		sound: new Howl({
+  		src: ['sounds/i.mp3']
+		}),
+		color: '#2980b9'
+	},
+	o: {
+    letter: "О",
+		sound: new Howl({
+			src: ['sounds/o.mp3']
+		}),
+		color: '#8e44ad'
+	},
+	p: {
+    letter: "П",
+		sound: new Howl({
+  		src: ['sounds/p.mp3']
+		}),
+		color: '#2c3e50'
+	},
+	a: {
+    letter: "А",
+		sound: new Howl({
+  		src: ['sounds/a.mp3']
+		}),
+		color: '#f1c40f'
+	},
+	s: {
+    letter: "С",
+		sound: new Howl({
+  		src: ['sounds/s.mp3']
+		}),
+		color: '#e67e22'
+	},
+		d: {
+    letter: "Д",
+		sound: new Howl({
+  		src: ['sounds/d.mp3']
+		}),
+		color: '#e74c3c'
+	},
+	f: {
+    letter: "Ф",
+		sound: new Howl({
+  		src: ['sounds/f.mp3']
+		}),
+		color: '#95a5a6'
+	},
+	g: {
+    letter: "Г",
+		sound: new Howl({
+  		src: ['sounds/g.mp3']
+		}),
+		color: '#f39c12'
+	},
+	h: {
+    letter: "Х",
+		sound: new Howl({
+  		src: ['sounds/h.mp3']
+		}),
+		color: '#d35400'
+	},
+	j: {
+    letter: "Ж",
+		sound: new Howl({
+  		src: ['sounds/j.mp3']
+		}),
+		color: '#1abc9c'
+	},
+	k: {
+    letter: "К",
+		sound: new Howl({
+  		src: ['sounds/k.mp3']
+		}),
+		color: '#2ecc71'
+	},
+	l: {
+    letter: "Л",
+		sound: new Howl({
+  		src: ['sounds/l.mp3']
+		}),
+		color: '#3498db'
+	},
+	z: {
+    letter: "З",
+		sound: new Howl({
+  		src: ['sounds/z.mp3']
+		}),
+		color: '#9b59b6'
+	},
+	x: {
+    letter: "Ч",
+		sound: new Howl({
+  		src: ['sounds/ch.mp3']
+		}),
+		color: '#34495e'
+	},
+	c: {
+    letter: "Ц",
+		sound: new Howl({
+  		src: ['sounds/c.mp3']
+		}),
+		color: '#16a085'
+	},
+	v: {
+    letter: "В",
+		sound: new Howl({
+  		src: ['sounds/v.mp3']
+		}),
+		color: '#27ae60'
+	},
+	b: {
+    letter: "Б",
+		sound: new Howl({
+  		src: ['sounds/b.mp3']
+		}),
+		color: '#2980b9'
+	},
+	n: {
+    letter: "Н",
+		sound: new Howl({
+			src: ['sounds/n.mp3']
+		}),
+		color: '#8e44ad'
+	},
+	m: {
+    letter: "М",
+		sound: new Howl({
+  		src: ['sounds/m.mp3']
+		}),
+		color: '#2c3e50'
+	}
+}
       var text = new PointText({
       	point: view.center,
       	// content: 'Click here to focus and then press some keys.',
@@ -14,10 +199,12 @@
       });
 
       function onKeyDown(event) {
-      	// When a key is pressed, set the content of the text item:
-      	// text.content = 'The ' + event.key + ' key was pressed!';
-        text.fillColor = 'white';
-      	text.content = event.key;
+        if (keyData[event.key]){
+          text.content = keyData[event.key].letter;
+          // text.content = event.key
+          text.fillColor = 'white';
+          keyData[event.key].sound.play();
+        }
       }
 
     </script>
