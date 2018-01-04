@@ -429,9 +429,15 @@ var keyData = {
         shadowBlur: 12,
         shadowOffset: new Point(5, 5)
       }
+      var canvasLayer = document.getElementById("myCanvas");
+      var arrayOfColors = [
+                "linear-gradient(to bottom, #bdc3c7, #2c3e50)",
+                "linear-gradient(to top, #304352, #d7d2cc)",
+                "linear-gradient(to top, #283048, #859398)"
+              ]
+      var randColor = arrayOfColors[Math.floor(Math.random()*arrayOfColors.length)];
+      canvasLayer.style.background = randColor;
       text.fillColor = randomColor();
       keyData[event.key].sound.play();
     }
   }
-
-  
