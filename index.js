@@ -414,30 +414,51 @@ var keyData = {
     return "rgb(" + r + ", " + g + ", " + b + ")";
   }
 
+  function changeBackground(){
+    var canvasLayer = document.getElementById("myCanvas");
+    var arrayOfColors = [
+              "linear-gradient(to bottom, #bdc3c7, #2c3e50)",
+              "linear-gradient(to top, #304352, #d7d2cc)",
+              "linear-gradient(to top, #283048, #859398)"
+            ]
+    var randColor = arrayOfColors[Math.floor(Math.random()*arrayOfColors.length)];
+    canvasLayer.style.background = randColor;
+  }
+
+  function generateLetter(event){
+    var maxPoint = new Point(view.size.width, view.size.height);
+    var randomPoint = Point.random();
+    var point = maxPoint * (0.7, 0.6) * randomPoint;
+    text.position = point + (180, 180);
+    text.content = keyData[event.key].letter;
+    text.style = {
+      fontSize: 250,
+      fontWeight: 'bold',
+      shadowColor: new Color(0, 0, 0),
+      shadowBlur: 12,
+      shadowOffset: new Point(3, 3)
+    }
+    text.fillColor = randomColor();
+  }
+
+  function playSound(event){
+    keyData[event.key].sound.play();
+  }
+
+  window.onclick = function(){
+  if (view.size.width < 500){
+    var eve = {}
+    eve.key = "abcdefgjhiklmnoprsqtuvwxyz"[Math.floor(Math.random() * "abcdefgjhiklmnoprsqtuvwxyz".length)];
+      generateLetter(eve);
+      playSound(eve);
+      changeBackground();
+    }
+  }
+
   function onKeyDown(event) {
     if (keyData[event.key]){
-      var maxPoint = new Point(view.size.width, view.size.height);
-      var randomPoint = Point.random();
-      var point = maxPoint * (0.7, 0.6) * randomPoint;
-      text.position = point + (180, 180);
-      text.content = keyData[event.key].letter;
-      text.style = {
-        fontSize: 250,
-        fontFamily: 'Ubuntu',
-        fontWeight: 'bold',
-        shadowColor: new Color(0, 0, 0),
-        shadowBlur: 12,
-        shadowOffset: new Point(5, 5)
-      }
-      var canvasLayer = document.getElementById("myCanvas");
-      var arrayOfColors = [
-                "linear-gradient(to bottom, #bdc3c7, #2c3e50)",
-                "linear-gradient(to top, #304352, #d7d2cc)",
-                "linear-gradient(to top, #283048, #859398)"
-              ]
-      var randColor = arrayOfColors[Math.floor(Math.random()*arrayOfColors.length)];
-      canvasLayer.style.background = randColor;
-      text.fillColor = randomColor();
-      keyData[event.key].sound.play();
+      generateLetter(event);
+      playSound(event);
+      changeBackground();
     }
   }
