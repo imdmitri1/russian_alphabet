@@ -397,12 +397,19 @@ var keyData = {
       })
     }
   }
+
   var text = new PointText({
-  	content: 'Press any key to see and hear russian equivalent',
     point: view.center,
     justification: 'center',
-    fontSize: 25
   });
+
+  if (view.size.width > 500){
+    text.content = 'Press any letter to see and hear russian equivalent',
+    text.fontSize = 25
+  } else {
+    text.content = 'Tap to see and hear russian letters',
+    text.fontSize = 20
+  }
 
   function randomColor(){
     //pick a "red" from 0 to 255
@@ -425,11 +432,16 @@ var keyData = {
     canvasLayer.style.background = randColor;
   }
 
-  function generateLetter(event){
+  function randomPosition(){
     var maxPoint = new Point(view.size.width, view.size.height);
     var randomPoint = Point.random();
     var point = maxPoint * (0.7, 0.6) * randomPoint;
-    text.position = point + (180, 180);
+    return point + (180, 180);
+  }
+
+  function generateLetter(event, position){
+    // text.position = randomPosition();
+    text.position = position;
     text.content = keyData[event.key].letter;
     text.style = {
       fontSize: 250,
@@ -447,17 +459,17 @@ var keyData = {
 
   window.onclick = function(){
   if (view.size.width < 500){
-    var eve = {}
-    eve.key = "abcdefgjhiklmnoprsqtuvwxyz"[Math.floor(Math.random() * "abcdefgjhiklmnoprsqtuvwxyz".length)];
-      generateLetter(eve);
-      playSound(eve);
+    var ev = {}
+    ev.key = "abcdefgjhiklmnoprsqtuvwxyz"[Math.floor(Math.random() * "abcdefgjhiklmnoprsqtuvwxyz".length)];
+      generateLetter(ev,view.center);
+      playSound(ev);
       changeBackground();
     }
   }
 
   function onKeyDown(event) {
     if (keyData[event.key]){
-      generateLetter(event);
+      generateLetter(event,randomPosition());
       playSound(event);
       changeBackground();
     }
